@@ -1,0 +1,26 @@
+paths:
+    tests: tests
+    log: tests/_log
+    data: tests/_data
+    helpers: tests/_helpers
+settings:
+    bootstrap: _bootstrap.php
+    suite_class: \PHPUnit_Framework_TestSuite
+    colors: true
+    memory_limit: 1024M
+    log: true
+modules:
+    config:
+        PhpBrowser:
+            url: http://localhost:8000
+extensions:
+    enabled:
+        - Codeception\Extension\PhpBuiltinServer
+        - Codeception\Extension\RemoteDebug
+    config:
+        Codeception\Extension\PhpBuiltinServer:
+            hostname: localhost
+            port: 8000
+            documentRoot: tests/_data
+        Codeception\Extension\RemoteDebug:
+            sessionName: XDEBUG_SSHU

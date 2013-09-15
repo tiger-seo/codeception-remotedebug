@@ -1,0 +1,15 @@
+language: php
+
+php:
+  - 5.4
+  - 5.5
+
+env:
+  - CODECEPTION_VERSION="1.6.*"
+  - CODECEPTION_VERSION="dev-master"
+
+before_script:
+  - composer install -n --prefer-dist --dev
+  - composer require codeception/codeception:${CODECEPTION_VERSION}
+
+script: "bin/codecept -dxdebug.remote_enable=1 run --debug"
