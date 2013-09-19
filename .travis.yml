@@ -9,7 +9,7 @@ env:
   - CODECEPTION_VERSION="dev-master"
 
 before_script:
-  - echo "extension = xdebug.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
+  - echo "zend_extension = xdebug.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
   - composer install -n --prefer-dist --dev
   - composer require codeception/codeception:${CODECEPTION_VERSION}
 
