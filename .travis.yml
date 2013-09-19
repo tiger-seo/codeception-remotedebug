@@ -9,6 +9,7 @@ env:
   - CODECEPTION_VERSION="dev-master"
 
 before_script:
+  - composer self-update
   - composer install -n --prefer-dist --dev
   - composer require codeception/codeception:${CODECEPTION_VERSION}
 
