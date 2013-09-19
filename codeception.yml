@@ -23,4 +23,4 @@ extensions:
             port: 8000
             documentRoot: tests/_data
         Codeception\Extension\RemoteDebug:
-            sessionName: XDEBUG_SSHU
+            sessionName: XDEBUG_TIGER
