@@ -10,7 +10,7 @@
 		}
 	],
 	"require-dev"      : {
-		"codeception/codeception"     : "1.6.x",
+		"codeception/codeception"     : ">=1.6.0",
 		"codeception/phpbuiltinserver": "dev-master"
 	},
 	"autoload"         : {
