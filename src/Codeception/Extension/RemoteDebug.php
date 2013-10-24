@@ -2,8 +2,9 @@
 
 namespace Codeception\Extension;
 
-use Codeception\Platform\Extension;
 use Codeception\SuiteManager;
+use Codeception\Module\PhpBrowser;
+use Codeception\Platform\Extension;
 use Codeception\Util\RemoteInterface;
 
 class RemoteDebug extends Extension
@@ -24,7 +25,29 @@ class RemoteDebug extends Extension
                 return $module;
             }
         }
+
         return null;
+    }
+
+    /**
+     * @return \Guzzle\Http\Client
+     */
+    protected function getGuzzleHttpClient()
+    {
+        $client = null;
+        if (method_exists($this->module, 'getClient')) {
+            $client = $this->module->getClient();
+        } elseif ($this->module instanceof PhpBrowser) {
+            $driver = $this->module->session->getDriver();
+            if ($driver instanceof \Behat\Mink\Driver\GoutteDriver) {
+                $client = $driver->getClient();
+                if (method_exists($client, 'getClient')) {
+                    $client = $client->getClient();
+                }
+            }
+        }
+
+        return ($client instanceof \Guzzle\Http\Client ? $client : null);
     }
 
     public function beforeSuite()
@@ -40,8 +63,9 @@ class RemoteDebug extends Extension
         ) {
             $this->module->setCookie('XDEBUG_SESSION', $this->config['sessionName']);
 
-            if (method_exists($this->module, 'getClient')) {
-                $clientConfig                 = $this->module->getClient()->getConfig();
+            $client = $this->getGuzzleHttpClient();
+            if ($client !== null) {
+                $clientConfig                 = $client->getConfig();
                 $curlOptions                  = $clientConfig->get('curl.options');
                 $curlOptions[CURLOPT_TIMEOUT] = 0;
                 $clientConfig->set('curl.options', $curlOptions);
