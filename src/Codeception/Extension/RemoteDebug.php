@@ -9,9 +9,9 @@ use Codeception\Util\RemoteInterface;
 
 class RemoteDebug extends Extension
 {
-    static $events = [
+    static $events = array(
         'suite.before' => 'beforeSuite'
-    ];
+    );
 
     protected $module;
 
