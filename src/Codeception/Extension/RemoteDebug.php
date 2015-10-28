@@ -8,9 +8,9 @@ use Codeception\Lib\InnerBrowser;
 
 class RemoteDebug extends Extension
 {
-    static $events = [
+    static $events = array(
         'suite.before' => 'beforeSuite'
-    ];
+    );
 
     protected $module;
 
